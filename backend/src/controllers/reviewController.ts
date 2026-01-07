@@ -39,7 +39,7 @@ export const createReview = async (req: AuthRequest, res: Response) => {
       [patientId, dentistId, rating, comment || null]
     );
 
-    res.status(201).json(result.rows[0]);
+    return res.status(201).json(result.rows[0]);
   } catch (error) {
     throw error;
   }

@@ -7,7 +7,7 @@ async function seed() {
 
     const hashedPassword = await bcrypt.hash('Password123!', 10);
 
-    const adminResult = await pool.query(
+    await pool.query(
       `INSERT INTO users (email, password, role, first_name, last_name, phone)
        VALUES ($1, $2, $3, $4, $5, $6)
        ON CONFLICT (email) DO NOTHING
@@ -23,7 +23,7 @@ async function seed() {
       ['dentist@dental.com', hashedPassword, 'dentist', 'Dr. John', 'Smith', '555-0002']
     );
 
-    const hygienistResult = await pool.query(
+    await pool.query(
       `INSERT INTO users (email, password, role, first_name, last_name, phone)
        VALUES ($1, $2, $3, $4, $5, $6)
        ON CONFLICT (email) DO NOTHING
@@ -31,7 +31,7 @@ async function seed() {
       ['hygienist@dental.com', hashedPassword, 'hygienist', 'Sarah', 'Johnson', '555-0003']
     );
 
-    const receptionistResult = await pool.query(
+    await pool.query(
       `INSERT INTO users (email, password, role, first_name, last_name, phone)
        VALUES ($1, $2, $3, $4, $5, $6)
        ON CONFLICT (email) DO NOTHING
@@ -61,7 +61,7 @@ async function seed() {
       ]
     );
 
-    const patient2Result = await pool.query(
+    await pool.query(
       `INSERT INTO users (email, password, role, first_name, last_name, phone, date_of_birth, insurance_provider)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        ON CONFLICT (email) DO NOTHING
