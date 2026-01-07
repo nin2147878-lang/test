@@ -188,7 +188,7 @@ export const cancelAppointment = async (req: AuthRequest, res: Response) => {
       throw new AppError('Appointment not found', 404);
     }
 
-    const { patient_id, dentist_id } = appointment.rows[0];
+    const { patient_id } = appointment.rows[0];
 
     if (
       userRole === UserRole.PATIENT &&

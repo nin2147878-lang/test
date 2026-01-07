@@ -7,7 +7,7 @@ import {
   FaHome,
   FaCalendar,
   FaUser,
-  FaFileMe dical,
+  FaFileMedical,
   FaClipboardList,
   FaMoneyBillWave,
   FaUsers,

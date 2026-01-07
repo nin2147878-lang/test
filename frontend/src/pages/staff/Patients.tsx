@@ -9,17 +9,17 @@ const StaffPatients: React.FC = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const res = await patientAPI.getAll({ search });
+        setPatients(res.data);
+      } catch (error) {
+        toast.error('Failed to load patients');
+      }
+    };
+
     fetchPatients();
   }, [search]);
-
-  const fetchPatients = async () => {
-    try {
-      const res = await patientAPI.getAll({ search });
-      setPatients(res.data);
-    } catch (error) {
-      toast.error('Failed to load patients');
-    }
-  };
 
   return (
     <Layout>

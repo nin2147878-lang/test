@@ -7,4 +7,5 @@ export const validate = (req: Request, res: Response, next: NextFunction) => {
     return res.status(400).json({ errors: errors.array() });
   }
   next();
+  return;
 };

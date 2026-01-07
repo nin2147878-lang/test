@@ -10,23 +10,23 @@ const PatientMedicalRecords: React.FC = () => {
   const [dentalRecords, setDentalRecords] = useState<any[]>([]);
 
   useEffect(() => {
+    const fetchRecords = async () => {
+      try {
+        const [medicalRes, dentalRes] = await Promise.all([
+          patientAPI.getMedicalRecord(user!.id),
+          patientAPI.getDentalRecords(user!.id),
+        ]);
+        setMedicalRecord(medicalRes.data);
+        setDentalRecords(dentalRes.data);
+      } catch (error) {
+        console.error('Error fetching records:', error);
+      }
+    };
+
     if (user) {
       fetchRecords();
     }
   }, [user]);
-
-  const fetchRecords = async () => {
-    try {
-      const [medicalRes, dentalRes] = await Promise.all([
-        patientAPI.getMedicalRecord(user!.id),
-        patientAPI.getDentalRecords(user!.id),
-      ]);
-      setMedicalRecord(medicalRes.data);
-      setDentalRecords(dentalRes.data);
-    } catch (error) {
-      console.error('Error fetching records:', error);
-    }
-  };
 
   return (
     <Layout>

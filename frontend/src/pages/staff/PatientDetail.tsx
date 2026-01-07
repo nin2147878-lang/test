@@ -12,25 +12,25 @@ const StaffPatientDetail: React.FC = () => {
   const [treatments, setTreatments] = useState<any[]>([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [patientRes, medicalRes, appointmentsRes, treatmentsRes] = await Promise.all([
+          patientAPI.getById(id!),
+          patientAPI.getMedicalRecord(id!),
+          appointmentAPI.getAll(),
+          treatmentAPI.getAll({ patientId: id }),
+        ]);
+        setPatient(patientRes.data);
+        setMedicalRecord(medicalRes.data);
+        setAppointments(appointmentsRes.data.filter((a: any) => a.patient_id === id));
+        setTreatments(treatmentsRes.data);
+      } catch (error) {
+        toast.error('Failed to load patient data');
+      }
+    };
+
     if (id) fetchData();
   }, [id]);
-
-  const fetchData = async () => {
-    try {
-      const [patientRes, medicalRes, appointmentsRes, treatmentsRes] = await Promise.all([
-        patientAPI.getById(id!),
-        patientAPI.getMedicalRecord(id!),
-        appointmentAPI.getAll(),
-        treatmentAPI.getAll({ patientId: id }),
-      ]);
-      setPatient(patientRes.data);
-      setMedicalRecord(medicalRes.data);
-      setAppointments(appointmentsRes.data.filter((a: any) => a.patient_id === id));
-      setTreatments(treatmentsRes.data);
-    } catch (error) {
-      toast.error('Failed to load patient data');
-    }
-  };
 
   if (!patient) return <Layout><div>Loading...</div></Layout>;
 

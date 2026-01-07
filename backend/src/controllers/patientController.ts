@@ -83,7 +83,7 @@ export const getMedicalRecord = async (req: AuthRequest, res: Response) => {
       return res.json(newRecord.rows[0]);
     }
 
-    res.json(result.rows[0]);
+    return res.json(result.rows[0]);
   } catch (error) {
     throw error;
   }
@@ -115,7 +115,7 @@ export const updateMedicalRecord = async (req: AuthRequest, res: Response) => {
       return res.json(newRecord.rows[0]);
     }
 
-    res.json(result.rows[0]);
+    return res.json(result.rows[0]);
   } catch (error) {
     throw error;
   }
@@ -165,7 +165,7 @@ export const createDentalRecord = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getDentists = async (req: AuthRequest, res: Response) => {
+export const getDentists = async (_req: AuthRequest, res: Response) => {
   try {
     const result = await pool.query(
       `SELECT id, first_name, last_name, email, phone
@@ -175,7 +175,7 @@ export const getDentists = async (req: AuthRequest, res: Response) => {
       [UserRole.DENTIST, UserRole.HYGIENIST]
     );
 
-    res.json(result.rows);
+    return res.json(result.rows);
   } catch (error) {
     throw error;
   }
